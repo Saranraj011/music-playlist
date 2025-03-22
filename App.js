@@ -1,46 +1,33 @@
-import React , {useState} from "react";
+import React,{useState} from "react";
 
-function App() {
-  const [task ,setTask ] = useState("");
-  const [tasks ,setTasks ] = useState([]);
+function App(){
+  const [count,setCount]=useState(0);
 
-  const addTask =()=>{
-    if (task.trim() ==="")return;
-    setTasks([...tasks,task]);
-    setTask("");
-  };
+  const increase =()=>setCount(count +5);
 
-  const removeTask =(index)=>{
-    const newTasks= task.filter((_,i)=>i !==index);
-    setTasks(newTasks);
-  };
+  const reset =()=>setCount(0);
 
-  return(
-    <div style={{textAlign:"center", marginTop:"50px"}}>
-      <h2>TO_DO_LIST</h2>
+  const decrese =()=>setCount(count -5);
 
-      <input
-      type="text"
-      value={task}
-      onChange={(e)=> setTask(e.target.value)}
-      placeholder="Enter a task" />
+  return (
+    <div style={{textAlign:"center",marginTop:"50px"}}>
+      <h2>Simple counter app</h2>
+      <h1>{count}</h1>
 
-      <button onClick={addTask}>Add Task</button>
+      <button onClick={increase} style={btnStyle}>+ increase</button>
 
-      <ul>
-        {tasks.map((t,index)=>(
-          <li key={index}>
-            {t}{""}
+      <button onClick={reset} style={btnStyle}> reset</button>
 
-            <button onClick={()=>removeTask(index)}
-            style={{marginLeft:"10px"}}>
-              X
-            </button>
-          </li>
-        ))}
-      </ul>
+      <button onClick={decrese} style={btnStyle}>- decrese</button>
     </div>
-  )
+  );
 }
+
+const btnStyle={
+  margin:"10px",
+  padding:"10px 20px",
+  fontSize:"18px",
+  cursor:"pointer"
+};
 
 export default App;
