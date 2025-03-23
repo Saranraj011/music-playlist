@@ -1,31 +1,50 @@
 import React,{useState} from "react";
 
 function App(){
-  const quotes = [
-    "The only way to do great work is to love what you do. — Steve Jobs",
-    "Life is what happens when you're busy making other plans. — John Lennon",
-    "Do what you can, with what you have, where you are. — Theodore Roosevelt",
-    "Your time is limited, so don’t waste it living someone else’s life. — Steve Jobs",
-    "In the middle of every difficulty lies opportunity. — Albert Einstein",
-    "Don't watch the clock; do what it does. Keep going. — Sam Levenson",
-    "This is my life i'm live in my own way"
-  ];
-
-  const [quote, setQuote] =useState(quotes[0]);
-
-  const genQuote =()=> {
-    const randomIndex =Math.floor(Math.random()*quotes.length);
-    setQuote(quotes[randomIndex]);
-
+  const [name,setName]=useState("");
+  const [age,setAge] =useState("");
+  const [submitted,setSubmitted] =useState(false);
+  
+  const handleSubmit =(e)=> {
+    e.preventDefault();
+    setSubmitted(true);
   };
+  
 
   return (
     <div style={conStyle}>
-      <h2>Random Quotes Generater</h2>
-      <h1 style={quoteStyle}>{quote}</h1>
+      <h2>User Input</h2>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <input
+        type="text"
+        placeholder="Enter your Name" 
+        value={name}
+        required
+        onChange={(e)=>setName(e.target.value)}
+        style={inputStyle}
+        />
 
-      <button onClick={genQuote} style={btnStyle}>New Quote</button>
+<input
+        type="number"
+        placeholder="Enter your Age" 
+        value={age}
+        required
+        onChange={(e)=>setAge(e.target.value)}
+        style={inputStyle}
+        />
 
+      <button type="submit" style={btnStyle}>submit</button>
+
+      </form>
+
+      {submitted && (
+        <div style={outputStyle}>
+        <h3>Submitted Data</h3>
+        <p><strong>Name:</strong>{name}</p>
+        <p><strong>Age:</strong>{age}</p>
+      </div>
+      )}
+      
     </div>
   );
 }
@@ -40,10 +59,26 @@ const btnStyle={
   fontSize:"18px",
   cursor:"pointer"
 };
-const quoteStyle={
-  fontSize:"20px",
-  fontStyle:"italic",
-  marginBottom:"20px"
+const formStyle={
+  display:"flex",
+  flexDirection: "column", 
+  alignItems: "center", 
+  gap: "10px" 
 };
+
+const inputStyle = { 
+  padding: "10px", 
+  fontSize: "16px",
+   width: "200px" 
+  };
+
+const outputStyle = { 
+  marginTop: "20px", 
+  padding: "10px", 
+  border: "1px solid #ccc", 
+  borderRadius: "5px", 
+  display: "inline-block" 
+};
+
 
 export default App;
