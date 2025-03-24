@@ -16,7 +16,7 @@ function App(){
         style={inputStyle}
         />
 
-        <P>Try colors like  <b>blue,red</b>or HEX value like<b>#ff5733</b></P>
+        <p>Try colors like  <b>blue,red</b>or HEX value like<b>#ff5733</b></p>
 
     </div>
   );
