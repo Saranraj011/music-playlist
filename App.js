@@ -8,7 +8,7 @@ function App(){
    setLoading(true);
 
    try {
-    const response = await fetch("");
+    const response = await fetch("https://official-joke-api.appspot.com/random_joke");
     const data = await response.json();
     setJoke(`${data.setup} - ${data.punchline}`);
    } catch (error) {
