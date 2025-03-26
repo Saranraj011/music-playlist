@@ -1,35 +1,29 @@
 import React,{useEffect, useState} from "react";
 
 function App(){
-  const [joke,setJoke]=useState("");
-  const [loading,setLoading]=useState(false);
+  const [text,setText]=useState("");
+  const [qrCode,setQRCode]=useState("");
 
-  const fetchJoke = async () => {
-   setLoading(true);
-
-   try {
-    const response = await fetch("https://official-joke-api.appspot.com/random_joke");
-    const data = await response.json();
-    setJoke(`${data.setup} - ${data.punchline}`);
-   } catch (error) {
-    setJoke("Oops! Failed to load joke, try again");
-   }
-   setLoading(false);
+  const generateQRCode = () => {
+    if (text.trim()==="") return;
+    setQRCode(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`);
   };
-
-  useEffect(()=> {
-    fetchJoke();
-  },[]);
 
   return (
     <div style={contStyle}>
-      <h2>Random Joke generator using API</h2>
-      {loading ?<p>Loading...</p>:<p style={jokeStyle}>{joke}</p>}
-       
-       <button onClick={fetchJoke} style={btnStyle}>Get New Joke</button>
+      <h2>QR Code Generator</h2>
+      <input type="text" placeholder="Enter Text or URL"  value={text} onChange={(e) => setText(e.target.value)} style={inputStyle}></input>
+       <button onClick={generateQRCode} style={btnStyle}>Get New Joke</button>
+    
     </div>
   );
 }
+{qrCode &&(
+  <div>
+    <img src={qrCode} alt="QR Code" style={qrStyle}/>
+    <p>{text}</p>
+  </div>
+)}
 const contStyle={
   textAlign:"center",
   heigth:"100vh",
@@ -46,30 +40,37 @@ const btnStyle={
   fontSize:"18px",
   cursor:"pointer"
 };
-const formStyle={
-  display:"flex",
-  flexDirection: "column", 
-  alignItems: "center", 
-  gap: "10px" 
-};
 
-// const inputStyle = { 
-//   padding: "10px", 
-//   fontSize: "16px",
-//    width: "300px",
-//    margin: "10px",
-//    border: "1px solid #ccc",
-//    borderRadius: "5px",
-//    textAlign:"center" 
-//   }; 
+// const formStyle={
+//   display:"flex",
+//   flexDirection: "column", 
+//   alignItems: "center", 
+//   gap: "10px" 
+// };
 
-const jokeStyle = { 
-  marginTop: "20px", 
+const inputStyle = { 
   padding: "10px", 
-  border: "1px solid #ccc", 
-  borderRadius: "5px", 
-  display: "inline-block" 
-};
+  fontSize: "16px",
+   width: "300px",
+   margin: "10px",
+   border: "1px solid #ccc",
+   borderRadius: "5px",
+   textAlign:"center" 
+  }; 
+
+  const qrStyle ={
+    marginTop:"20px",
+    border:"1px solid #ddd",
+    padding:"10px",
+    borderRadius:"5px"
+  };
+// const jokeStyle = { 
+//   marginTop: "20px", 
+//   padding: "10px", 
+//   border: "1px solid #ccc", 
+//   borderRadius: "5px", 
+//   display: "inline-block" 
+// };
 
 
 export default App;
