@@ -13,17 +13,20 @@ function App(){
     <div style={contStyle}>
       <h2>QR Code Generator</h2>
       <input type="text" placeholder="Enter Text or URL"  value={text} onChange={(e) => setText(e.target.value)} style={inputStyle}></input>
-       <button onClick={generateQRCode} style={btnStyle}>Get New Joke</button>
-    
-    </div>
-  );
-}
-{qrCode &&(
+       <button onClick={generateQRCode} style={btnStyle}>Generator</button>
+
+       
+   {qrCode &&(
   <div>
     <img src={qrCode} alt="QR Code" style={qrStyle}/>
     <p>{text}</p>
   </div>
-)}
+   )
+  }
+   </div>    
+); 
+}
+
 const contStyle={
   textAlign:"center",
   heigth:"100vh",
