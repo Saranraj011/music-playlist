@@ -5,7 +5,7 @@ function App() {
   
   useEffect(() => {
     const savedSongs = JSON.parse(localStorage.getItem("songs")) || [];
-    setNotes(savedSongs);
+    setSongs(savedSongs);
   }, []);
 
 
